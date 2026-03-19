@@ -1,3 +1,5 @@
+from sqlalchemy import desc
+
 from .extensions import db
 from .models import Recipe
 
@@ -11,7 +13,11 @@ def get_all_recipes() -> list[dict]:
         3. Return the list of dicts.
     """
     # TODO: Implement this method
-    pass
+    recipes = Recipe.query.order_by(Recipe.created_at, desc).all()
+    recipes_list = []
+    for recipe in recipes:
+        recipes_list.append(recipe.to_dict())
+    return recipes_list
 
 def get_recipe_by_id(recipe_id: int) -> dict:
     """Return a single recipe dict by its id, or 404.
@@ -21,7 +27,8 @@ def get_recipe_by_id(recipe_id: int) -> dict:
         2. Return the recipe as a dict.
     """
     # TODO: Implement this method
-    pass
+    recipe = db.session.query.get_or_404(Recipe, recipe_id).first()
+    return recipe.to_dict()
 
 
 def create_recipe(data: dict) -> dict:
@@ -35,7 +42,14 @@ def create_recipe(data: dict) -> dict:
         3. Return the new recipe as a dict.
     """
     # TODO: Implement this method
-    pass
+    recipe = Recipe(title=data["title"], description=data["description"], instructions=data["instructions"], prep_time=data["prep_time"], user_id=data["user_id"])
+    db.session.add(recipe)
+    try:
+        db.session.commit()
+    except Exception:
+        db.session.rollback()
+        return {"error": "there was an error saving your recipe."}
+    return recipe.to_dict()
 
 
 def delete_recipe(recipe_id: int) -> None:
@@ -46,7 +60,15 @@ def delete_recipe(recipe_id: int) -> None:
         2. Delete it from the session and commit.
     """
     # TODO: Implement this method
-    pass
+    recipe = db.session.query.get_or_404(Recipe, recipe_id).first()
+    db.session.delete(recipe)
+    try:
+        db.session.commit()
+    except Exception:
+        db.session.rollback()
+        #return {"error": "there was an error deleting your recipe."}
+    #return {"success": "your recipe has been deleted"}
+    #return {}, 204
 
 
 def update_recipe(recipe_id: int, data: dict) -> dict:
@@ -61,5 +83,20 @@ def update_recipe(recipe_id: int, data: dict) -> dict:
         4. Return the updated recipe as a dict.
     """
     # TODO: Implement this method
-    pass
+    recipe = db.session.get_or_404(Recipe, recipe_id)
+    if "title" in data:
+        recipe.title = data["title"]
+    if "description" in data:
+        recipe.description = data["description"]
+    if "instructions" in data:
+        recipe.instructions = data["instructions"]
+    if "prep_time" in data:
+        recipe.prep_time = data["prep_time"]
+    try:
+        db.session.commit()
+    except Exception:
+        db.session.rollback()
+        return {"error": "error updating your recipe"}
+    return recipe.to_dict()
+
 
