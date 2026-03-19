@@ -1,0 +1,55 @@
+{
+  "tests": [
+    {
+      "name": "GET /api/recipes — returns all recipes",
+      "setup": "pip install -r requirements.txt pytest",
+      "run": "python -m pytest tests/test_routes.py::TestGetAllRecipes -v",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 30,
+      "points": 15
+    },
+    {
+      "name": "GET /api/recipes/<id> — returns single recipe or 404",
+      "setup": "",
+      "run": "python -m pytest tests/test_routes.py::TestGetRecipeById -v",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 30,
+      "points": 15
+    },
+    {
+      "name": "POST /api/recipes — creates a recipe",
+      "setup": "",
+      "run": "python -m pytest tests/test_routes.py::TestCreateRecipe -v",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 30,
+      "points": 25
+    },
+    {
+      "name": "PUT /api/recipes/<id> — updates a recipe",
+      "setup": "",
+      "run": "python -m pytest tests/test_routes.py::TestUpdateRecipe -v",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 30,
+      "points": 25
+    },
+    {
+      "name": "DELETE /api/recipes/<id> — deletes a recipe",
+      "setup": "",
+      "run": "python -m pytest tests/test_routes.py::TestDeleteRecipe -v",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 30,
+      "points": 20
+    }
+  ]
+}
+
