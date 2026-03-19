@@ -43,9 +43,9 @@ def add_recipe():
         if entry not in data:
             missing.append(entry)
     if len(missing) > 0:
-        return {"error": f"The following field(s) are missing {missing}"}, 404
+        return {"error": f"The following field(s) are missing {missing}"}, 400
     recipe = create_recipe(data)
-    return jsonify(recipe)
+    return jsonify(recipe), 201
 
 
 @main.route("/api/recipes/<int:recipe_id>", methods=["PUT"])
@@ -73,4 +73,4 @@ def remove_recipe(recipe_id: int):
     """
     # TODO: Implement this route
     delete_recipe(recipe_id)
-    return 204
+    return {}, 204
