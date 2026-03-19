@@ -3,7 +3,7 @@
     {
       "name": "GET /api/recipes — returns all recipes",
       "setup": "pip install -r requirements.txt pytest",
-      "run": "python -m pytest tests/test_routes.py::TestGetAllRecipes -v",
+      "run": "python -m pytest tests/test_routes.py::TestGetAllRecipes --tb=line --no-header -q",
       "input": "",
       "output": "",
       "comparison": "included",
@@ -13,7 +13,7 @@
     {
       "name": "GET /api/recipes/<id> — returns single recipe or 404",
       "setup": "",
-      "run": "python -m pytest tests/test_routes.py::TestGetRecipeById -v",
+      "run": "python -m pytest tests/test_routes.py::TestGetRecipeById --tb=line --no-header -q",
       "input": "",
       "output": "",
       "comparison": "included",
@@ -23,7 +23,7 @@
     {
       "name": "POST /api/recipes — creates a recipe",
       "setup": "",
-      "run": "python -m pytest tests/test_routes.py::TestCreateRecipe -v",
+      "run": "python -m pytest tests/test_routes.py::TestCreateRecipe --tb=line --no-header -q",
       "input": "",
       "output": "",
       "comparison": "included",
@@ -33,7 +33,7 @@
     {
       "name": "PUT /api/recipes/<id> — updates a recipe",
       "setup": "",
-      "run": "python -m pytest tests/test_routes.py::TestUpdateRecipe -v",
+      "run": "python -m pytest tests/test_routes.py::TestUpdateRecipe --tb=line --no-header -q",
       "input": "",
       "output": "",
       "comparison": "included",
@@ -43,7 +43,7 @@
     {
       "name": "DELETE /api/recipes/<id> — deletes a recipe",
       "setup": "",
-      "run": "python -m pytest tests/test_routes.py::TestDeleteRecipe -v",
+      "run": "python -m pytest tests/test_routes.py::TestDeleteRecipe --tb=line --no-header -q",
       "input": "",
       "output": "",
       "comparison": "included",

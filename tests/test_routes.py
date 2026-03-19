@@ -8,8 +8,7 @@ from app.models import User, Recipe
 @pytest.fixture()
 def app():
     """Create a test app with an in-memory SQLite database."""
-    app = create_app()
-    app.config.update(
+    app = create_app(
         {
             "TESTING": True,
             "SQLALCHEMY_DATABASE_URI": "sqlite:///:memory:",
@@ -17,6 +16,7 @@ def app():
     )
 
     with app.app_context():
+        db.drop_all()
         db.create_all()
 
         # seed a user and a recipe for tests
