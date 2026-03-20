@@ -36,7 +36,16 @@ def add_recipe():
         3. Call create_recipe() from services and return the result with status 201.
     """
     # TODO: Implement this route
-    pass
+    data = request.get_json()
+    columns = ["title", "description", "instructions", "prep_time", "user_id"]
+    missing = []
+    for entry in columns:
+        if entry not in data:
+            missing.append(entry)
+    if len(missing) > 0:
+        return {"error": f"The following field(s) are missing {missing}"}, 400
+    recipe = create_recipe(data)
+    return jsonify(recipe), 201
 
 
 @main.route("/api/recipes/<int:recipe_id>", methods=["PUT"])
@@ -49,7 +58,9 @@ def modify_recipe(recipe_id: int):
         3. Return the updated recipe as JSON.
     """
     # TODO: Implement this route
-    pass
+    data = request.get_json()
+    recipe = update_recipe(recipe_id, data)
+    return jsonify(recipe)
 
 
 @main.route("/api/recipes/<int:recipe_id>", methods=["DELETE"])
@@ -61,4 +72,5 @@ def remove_recipe(recipe_id: int):
         2. Return a 204 No Content response.
     """
     # TODO: Implement this route
-    pass
+    delete_recipe(recipe_id)
+    return {}, 204
